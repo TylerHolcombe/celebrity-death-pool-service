@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "cdp";
+
+package cdp;
+
+service CelebrityDeathPool {
+  rpc GetPlayers(GetPlayersRequest) returns (GetPlayersResponse) {}
+}
+
+message GetPlayersRequest {}
+
+message GetPlayersResponse {
+  repeated Player players = 1;
+}
+
+message Player {
+  int64 player_id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string email_address = 4;
+
+  repeated Entry entries = 5;
+}
+
+message Entry {
+  int64 entry_id = 1;
+  bool is_approved = 2;
+  bool is_paid = 3;
+
+  repeated Celebrity selections = 4;
+}
+
+message Celebrity {
+  int64 celebrity_id = 1;
+  string name = 2;
+  bool is_dead = 3;
+  bool is_wildcard = 4;
+}
