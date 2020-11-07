@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.toList;
 
 @RestController
@@ -20,6 +21,12 @@ public class CelebrityDeathPoolController {
     public List<Entry> getApprovedEntries() {
         logger.info("Request received at: /entries/approved");
         return getMockEntries().stream().filter(Entry::isApproved).collect(toList());
+    }
+
+    @GetMapping("/entries/unapproved")
+    public List<Entry> getUnapprovedEntries() {
+        logger.info("Request received at: /entries/unapproved");
+        return getMockEntries().stream().filter(not(Entry::isApproved)).collect(toList());
     }
 
     // TODO: Remove mock data
