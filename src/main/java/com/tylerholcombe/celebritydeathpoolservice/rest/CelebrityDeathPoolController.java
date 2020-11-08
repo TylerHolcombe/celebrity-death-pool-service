@@ -29,6 +29,12 @@ public class CelebrityDeathPoolController {
         return getMockEntries().stream().filter(not(Entry::isApproved)).collect(toList());
     }
 
+    @GetMapping("/celebrities")
+    public List<Celebrity> getCelebrities() {
+        logger.info("Request received at: /celebrities");
+        return getMockCelebrities();
+    }
+
     // TODO: Remove mock data
     private static List<Player> getMockPlayers() {
         Player player1 = new Player();
