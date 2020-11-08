@@ -84,4 +84,14 @@ public class Entry {
     public void setPlayer(Player player) {
         this.player = player;
     }
+
+    public Entry syncEntrySelections() {
+        this.entrySelections = this.selections.stream().map(EntrySelection::new).collect(toList());
+        return this;
+    }
+
+    public Entry syncSelections() {
+        this.selections = this.entrySelections.stream().map(Celebrity::new).collect(toList());
+        return this;
+    }
 }

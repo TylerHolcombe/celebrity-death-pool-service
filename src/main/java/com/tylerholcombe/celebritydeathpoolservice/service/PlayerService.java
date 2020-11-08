@@ -19,11 +19,11 @@ public class PlayerService {
     private EntryRepository entryRepository;
 
     public List<Entry> getApprovedEntries() {
-        return entryRepository.findByIsApproved(true);
+        return entryRepository.findByIsApproved(true).stream().map(Entry::syncSelections).collect(toList());
     }
 
     public List<Entry> getUnapprovedEntries() {
-        return getMockEntries().stream().filter(not(Entry::isApproved)).collect(toList());
+        return entryRepository.findByIsApproved(false).stream().map(Entry::syncSelections).collect(toList());
     }
 
     public List<Celebrity> getCelebrities() {
