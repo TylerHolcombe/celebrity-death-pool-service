@@ -2,13 +2,18 @@ package com.tylerholcombe.celebritydeathpoolservice.rest;
 
 import com.tylerholcombe.celebritydeathpoolservice.model.Celebrity;
 import com.tylerholcombe.celebritydeathpoolservice.model.Entry;
+import com.tylerholcombe.celebritydeathpoolservice.model.Player;
 import com.tylerholcombe.celebritydeathpoolservice.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.logging.Logger;
+
+import static com.tylerholcombe.celebritydeathpoolservice.validator.PlayerValidator.validateNewPlayerDetails;
 
 @RestController
 public class CelebrityDeathPoolController {
@@ -19,19 +24,26 @@ public class CelebrityDeathPoolController {
 
     @GetMapping("/entries/approved")
     public List<Entry> getApprovedEntries() {
-        logger.info("Request received at: /entries/approved");
+        logger.info("GET request received at: /entries/approved");
         return playerService.getApprovedEntries();
     }
 
     @GetMapping("/entries/unapproved")
     public List<Entry> getUnapprovedEntries() {
-        logger.info("Request received at: /entries/unapproved");
+        logger.info("GET request received at: /entries/unapproved");
         return playerService.getUnapprovedEntries();
     }
 
     @GetMapping("/celebrities")
     public List<Celebrity> getCelebrities() {
-        logger.info("Request received at: /celebrities");
+        logger.info("GET request received at: /celebrities");
         return playerService.getCelebrities();
+    }
+
+    @PostMapping("/players")
+    public Long createPlayer(@RequestBody Player player) {
+        logger.info("POST request received at: /players");
+        validateNewPlayerDetails(player);
+        return playerService.createPlayerOrGetId(player);
     }
 }
