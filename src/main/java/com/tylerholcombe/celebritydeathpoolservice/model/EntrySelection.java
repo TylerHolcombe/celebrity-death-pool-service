@@ -1,5 +1,7 @@
 package com.tylerholcombe.celebritydeathpoolservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +18,7 @@ public class EntrySelection {
 
     @ManyToOne
     @JoinColumn(name = "entry_id")
+    @JsonIgnore
     private Entry entry;
 
     @ManyToOne
@@ -32,7 +35,6 @@ public class EntrySelection {
 
     public EntrySelection(Celebrity celebrity) {
         this.celebrity = celebrity;
-        this.setWildcard(celebrity.isWildcard());
     }
 
     public long getEntrySelectionId() {

@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.stream.Collectors.toList;
-
 @Service
 public class PlayerService {
     @Autowired
@@ -26,11 +24,11 @@ public class PlayerService {
     private PlayerRepository playerRepository;
 
     public List<Entry> getApprovedEntries() {
-        return entryRepository.findByIsApproved(true).stream().map(Entry::syncSelections).collect(toList());
+        return entryRepository.findByIsApproved(true);
     }
 
     public List<Entry> getUnapprovedEntries() {
-        return entryRepository.findByIsApproved(false).stream().map(Entry::syncSelections).collect(toList());
+        return entryRepository.findByIsApproved(false);
     }
 
     public List<Celebrity> getCelebrities() {
