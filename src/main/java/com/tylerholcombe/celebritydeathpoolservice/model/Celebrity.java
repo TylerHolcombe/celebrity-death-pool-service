@@ -16,6 +16,11 @@ public class Celebrity {
     public Celebrity() {
     }
 
+    public Celebrity(String celebrityName) {
+        this.celebrityName = celebrityName;
+        this.isDead = false;
+    }
+
     public Celebrity(long celebrityId, String celebrityName, boolean isDead) {
         this.celebrityId = celebrityId;
         this.celebrityName = celebrityName;

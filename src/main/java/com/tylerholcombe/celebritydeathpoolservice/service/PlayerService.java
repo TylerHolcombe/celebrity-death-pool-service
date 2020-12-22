@@ -5,6 +5,7 @@ import com.tylerholcombe.celebritydeathpoolservice.model.Entry;
 import com.tylerholcombe.celebritydeathpoolservice.model.Player;
 import com.tylerholcombe.celebritydeathpoolservice.repository.CelebrityRepository;
 import com.tylerholcombe.celebritydeathpoolservice.repository.EntryRepository;
+import com.tylerholcombe.celebritydeathpoolservice.repository.EntrySelectionRepository;
 import com.tylerholcombe.celebritydeathpoolservice.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ import java.util.Optional;
 public class PlayerService {
     @Autowired
     private EntryRepository entryRepository;
+
+    @Autowired
+    private EntrySelectionRepository entrySelectionRepository;
 
     @Autowired
     private CelebrityRepository celebrityRepository;
@@ -43,5 +47,21 @@ public class PlayerService {
         }
         Player newPlayer = playerRepository.save(player);
         return newPlayer.getPlayerId();
+    }
+
+    public Long createEntry(Entry entry) {
+        Entry savedEntry = entryRepository.save(entry);
+
+        entry.getEntrySelections().forEach(entrySelection -> {
+            entrySelection.setCelebrity(createOrGetCelebrityByName(entrySelection.getCelebrity().getCelebrityName()));
+            entrySelection.setEntry(savedEntry);
+            entrySelectionRepository.save(entrySelection);
+        });
+        return savedEntry.getEntryId();
+    }
+
+    private Celebrity createOrGetCelebrityByName(String name) {
+        Optional<Celebrity> celebrity = celebrityRepository.findOneByCelebrityName(name);
+        return celebrity.orElseGet(() -> celebrityRepository.save(new Celebrity(name)));
     }
 }
