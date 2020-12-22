@@ -7,6 +7,7 @@ import com.tylerholcombe.celebritydeathpoolservice.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,6 +45,12 @@ public class CelebrityDeathPoolController {
     public List<Celebrity> getCelebrities() {
         logger.info("GET request received at: /celebrities");
         return playerService.getCelebrities();
+    }
+
+    @PutMapping("/celebrities")
+    public Long updateCelebrities(@RequestBody List<Celebrity> celebrities) {
+        logger.info("PUT request received at: /celebrities");
+        return playerService.saveCelebrities(celebrities);
     }
 
     @PostMapping("/players")

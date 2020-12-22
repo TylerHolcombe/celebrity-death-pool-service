@@ -64,4 +64,9 @@ public class PlayerService {
         Optional<Celebrity> celebrity = celebrityRepository.findOneByCelebrityName(name);
         return celebrity.orElseGet(() -> celebrityRepository.save(new Celebrity(name)));
     }
+
+    public Long saveCelebrities(List<Celebrity> celebrities) {
+        celebrityRepository.saveAll(celebrities);
+        return 200L;
+    }
 }
