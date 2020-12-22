@@ -1,7 +1,7 @@
 USE celebrity_death_pool;
 
-CREATE USER 'cr-user' IDENTIFIED BY 'password';
-GRANT SELECT, INSERT ON celebrity_death_pool.* TO 'cr-user';
+CREATE USER 'cru-user' IDENTIFIED BY 'password';
+GRANT SELECT, INSERT, UPDATE ON celebrity_death_pool.* TO 'cru-user';
 CREATE USER 'admin' IDENTIFIED BY 'asdf';
 GRANT INSERT, SELECT, UPDATE, DELETE ON celebrity_death_pool.* TO 'admin';
 
