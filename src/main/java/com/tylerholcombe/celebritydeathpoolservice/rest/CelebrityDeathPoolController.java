@@ -41,6 +41,12 @@ public class CelebrityDeathPoolController {
         return playerService.createEntry(entry);
     }
 
+    @PutMapping("/entries")
+    public Long updateEntries(@RequestBody List<Entry> entries) {
+        logger.info("PUT request received at: /entries");
+        return playerService.saveEntries(entries);
+    }
+
     @GetMapping("/celebrities")
     public List<Celebrity> getCelebrities() {
         logger.info("GET request received at: /celebrities");

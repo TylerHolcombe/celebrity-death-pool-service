@@ -67,6 +67,13 @@ public class PlayerService {
 
     public Long saveCelebrities(List<Celebrity> celebrities) {
         celebrityRepository.saveAll(celebrities);
+        // TODO: proper error code propagation
+        return 200L;
+    }
+
+    public Long saveEntries(List<Entry> entries) {
+        entryRepository.saveAll(entries);
+        // TODO: proper error code propagation
         return 200L;
     }
 }
